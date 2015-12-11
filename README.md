@@ -64,6 +64,9 @@ Apart from [Syro][syro]'s API, the following methods are available:
 
 `reply`: Writes to the response its argument encoded as JSON.
 
+Installation
+------------
+
 ```
 $ gem install satz
 ```

@@ -60,7 +60,7 @@ API
 
 Apart from [Syro][syro]'s API, the following methods are available:
 
-`read`: Reads the body of the requst and parses it as JSON.
+`read`: Reads the body of the request and parses it as JSON.
 
 `reply`: Writes to the response its argument encoded as JSON.
 

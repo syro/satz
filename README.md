@@ -19,7 +19,7 @@ Usage
 An example of a Satz application would look like this:
 
 ```ruby
-App = Satz.new do
+App = Satz.define do
   on "players" do
     on :player_id do
       get do

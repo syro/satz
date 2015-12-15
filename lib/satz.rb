@@ -22,9 +22,38 @@
 
 require "syro"
 require "json"
+require "base64"
 
 class Satz
   class Deck < Syro::Deck
+    HTTP_AUTHORIZATION = "HTTP_AUTHORIZATION".freeze
+
+    # Checks the Basic Auth headers and yields
+    # user and pass if credentials are provided.
+    # Returns nil if there are no credentials or
+    # if the block returns false or nil.
+    #
+    # Usage:
+    #
+    #     @user = auth do |user, pass|
+    #       User.authenticate(user, pass)
+    #     end
+    #
+    #     on @user.nil? do
+    #       res.status = 401
+    #       reply(error: "Unauthorized")
+    #     end
+    # 
+    def auth
+      http_auth = env.fetch(HTTP_AUTHORIZATION) do
+        return nil
+      end
+
+      cred = http_auth.split(" ")[1]
+      user, pass = Base64.decode64(cred).split(":")
+
+      yield(user, pass) || nil
+    end
 
     # Respond by default with JSON.
     def default_headers

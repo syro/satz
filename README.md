@@ -55,6 +55,33 @@ In user defined objects, you can define the method `to_json` according
 to your needs. Most ORMs already provide meaningful definitions for
 that method.
 
+Authentication
+--------------
+
+The `auth` method checks if Basic Auth headers were provided and
+returns `nil` otherwise. If it's able to access the supplied
+credentials, it yield the username and password and returns the
+result (if it's not false) or nil.
+
+Here's an example of how to use it:
+
+```ruby
+@user = auth do |user, pass|
+
+  # Here you can use any method of your
+  # choice. The example is from Shield.
+  User.authenticate(user, pass)
+end
+
+on @user.nil? do
+  res.status = 401
+  reply(error: "Unauthorized")
+end
+```
+
+Anything defined after that `on` block will be executed only if the
+authentication succeded.
+
 API
 ---
 

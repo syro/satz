@@ -82,6 +82,20 @@ end
 Anything defined after that `on` block will be executed only if the
 authentication succeded.
 
+Serialization
+-------------
+
+The default serializer is `JSON`, but it can be customized by
+supplying a serializer:
+
+```ruby
+Satz.serializer = MySerializer
+```
+
+A serializer must respond to `load(arg)` and `dump(arg)`, and that's
+the only restriction. Note that the supplied serializer will be used
+by all `Satz` applications.
+
 API
 ---
 

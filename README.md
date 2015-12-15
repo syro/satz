@@ -101,6 +101,8 @@ API
 
 Apart from [Syro][syro]'s API, the following methods are available:
 
+`auth`: Process Basic Auth headers and yield username and password.
+
 `read`: Reads the body of the request and parses it as JSON.
 
 `reply`: Writes to the response its argument encoded as JSON.

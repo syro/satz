@@ -1,6 +1,6 @@
-App = Satz.define do
+A1 = Satz.define do
   get do
-    reply(true)
+    reply(read)
   end
 
   post do
@@ -24,14 +24,14 @@ App = Satz.define do
 end
 
 setup do
-  Driver.new(App)
+  Driver.new(A1)
 end
 
 test "get" do |app|
   app.get("/")
 
   assert_equal 200, app.last_response.status
-  assert_equal %Q(true), app.last_response.body
+  assert_equal %Q(null), app.last_response.body
 end
 
 test "post" do |app|
@@ -54,4 +54,33 @@ test "auth" do |app|
   app.get("/protected")
 
   assert_equal %Q(true), app.last_response.body
+end
+
+module Reverser
+  def self.load(data)
+    data
+  end
+
+  def self.dump(data)
+    data.reverse
+  end
+end
+
+Satz.serializer = Reverser
+
+A2 = Satz.define do
+  get do
+    reply("hello")
+  end
+end
+
+setup do
+  Driver.new(A2)
+end
+
+test "get" do |app|
+  app.get("/")
+
+  assert_equal 200, app.last_response.status
+  assert_equal %Q(olleh), app.last_response.body
 end

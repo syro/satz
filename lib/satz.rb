@@ -25,6 +25,36 @@ require "json"
 require "base64"
 
 class Satz
+
+  # The JSON module from stdlib provides a safe way of loading data
+  # with the `parse` method, but the most widespread API for encoding
+  # and decoding data is with the `load` and `dump` methods, which in
+  # the case of JSON are unsafe. This module wraps the JSON constant
+  # from stdlib in order to expose a safe version of `load`. As the
+  # serializer is configurable, the user is expected to provide
+  # objects that respond safely to those methods.
+  module Serializer
+    def self.load(value)
+      JSON.load(value, nil, create_additions: false)
+    end
+
+    def self.dump(value)
+      JSON.dump(value)
+    end
+  end
+
+  @@serializer = Serializer
+
+  def self.serializer
+    @@serializer
+  end
+
+  # Modify the serializer to be used for all Satz applications.
+  # The serializer object must reply to `load(arg)` and `dump(arg)`.
+  def self.serializer=(value)
+    @@serializer = value
+  end
+
   class Deck < Syro::Deck
     HTTP_AUTHORIZATION = "HTTP_AUTHORIZATION".freeze
 
@@ -62,13 +92,12 @@ class Satz
 
     # Read JSON data from the POST request.
     def read
-      body = req.body.read
-      body && JSON.parse(body)
+      Satz.serializer.load(req.body.read)
     end
 
     # Write JSON data to the response.
     def reply(data)
-      res.write(JSON.dump(data))
+      res.write(Satz.serializer.dump(data))
     end
   end
 

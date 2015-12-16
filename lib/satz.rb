@@ -85,7 +85,8 @@ class Satz
       yield(user, pass) || nil
     end
 
-    # Respond by default with JSON.
+    # Respond by default with JSON. The default charset
+    # for "application/json" is UTF-8.
     def default_headers
       { "Content-Type" => "application/json" }
     end

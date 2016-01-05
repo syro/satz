@@ -1,1 +1,5 @@
+0.0.2
 
+* Add customizable serializer
+
+* Add authentication via Basic Auth

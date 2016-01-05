@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.description       = "Framework for JSON microservices"
   s.authors           = ["Michel Martens"]
   s.email             = ["michel@soveran.com"]
-  s.homepage          = "https://github.com/soveran/satz"
+  s.homepage          = "https://github.com/syro/satz"
   s.license           = "MIT"
 
   s.files = `git ls-files`.split("\n")

@@ -1,3 +1,7 @@
+0.0.3
+
+* Update homepage URL in gemspec
+
 0.0.2
 
 * Add customizable serializer

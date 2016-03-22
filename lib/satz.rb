@@ -22,7 +22,7 @@
 
 require "syro"
 require "json"
-require "base64"
+require "basica"
 
 class Satz
 
@@ -56,7 +56,7 @@ class Satz
   end
 
   class Deck < Syro::Deck
-    HTTP_AUTHORIZATION = "HTTP_AUTHORIZATION".freeze
+    include Basica
 
     # Checks the Basic Auth headers and yields
     # user and pass if credentials are provided.
@@ -75,14 +75,7 @@ class Satz
     #     end
     # 
     def auth
-      http_auth = env.fetch(HTTP_AUTHORIZATION) do
-        return nil
-      end
-
-      cred = http_auth.split(" ")[1]
-      user, pass = Base64.decode64(cred).split(":")
-
-      yield(user, pass) || nil
+      basic_auth(env) { |user, pass| yield(user, pass) }
     end
 
     # Respond by default with JSON. The default charset

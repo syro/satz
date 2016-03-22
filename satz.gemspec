@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name              = "satz"
-  s.version           = "0.0.3"
+  s.version           = "0.0.4"
   s.summary           = "Framework for JSON microservices"
   s.description       = "Framework for JSON microservices"
   s.authors           = ["Michel Martens"]

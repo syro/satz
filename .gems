@@ -1,3 +1,4 @@
-syro -v 2.1.2
-rack-test -v 0.6.3
 basica -v 1.0.0
+cutest -v 1.2.3
+rack-test -v 0.6.3
+syro -v 2.1.2

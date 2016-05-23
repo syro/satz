@@ -73,7 +73,7 @@ class Satz
     #       res.status = 401
     #       reply(error: "Unauthorized")
     #     end
-    # 
+    #
     def auth
       basic_auth(env) { |user, pass| yield(user, pass) }
     end
@@ -87,6 +87,8 @@ class Satz
     # Read JSON data from the POST request.
     def read
       Satz.serializer.load(req.body.read)
+    ensure
+      req.body.rewind
     end
 
     # Write JSON data to the response.

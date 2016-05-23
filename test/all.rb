@@ -84,3 +84,20 @@ test "get" do |app|
   assert_equal 200, app.last_response.status
   assert_equal %Q(olleh), app.last_response.body
 end
+
+Stream = Satz.define do
+  post do
+    _ = read
+
+    res.write(req.body.read)
+  end
+end
+
+test "stream" do
+  json = JSON.generate(ok: true)
+
+  app = Driver.new(Stream)
+  app.post("/", json)
+
+  assert_equal json, app.last_response.body
+end

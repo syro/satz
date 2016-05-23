@@ -1,6 +1,6 @@
 A1 = Satz.define do
   get do
-    reply(read)
+    reply(nil)
   end
 
   post do

@@ -35,7 +35,7 @@ class Satz
   # objects that respond safely to those methods.
   module Serializer
     def self.load(value)
-      JSON.load(value, nil, create_additions: false)
+      JSON.parse(value, create_additions: false)
     end
 
     def self.dump(value)

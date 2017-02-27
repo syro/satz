@@ -1,6 +1,6 @@
 A1 = Satz.define do
   get do
-    reply(read)
+    reply("null")
   end
 
   post do
@@ -31,7 +31,7 @@ test "get" do |app|
   app.get("/")
 
   assert_equal 200, app.last_response.status
-  assert_equal %Q(null), app.last_response.body
+  assert_equal %Q("null"), app.last_response.body
 end
 
 test "post" do |app|

@@ -78,12 +78,6 @@ class Satz
       basic_auth(env) { |user, pass| yield(user, pass) }
     end
 
-    # Respond by default with JSON. The default charset
-    # for "application/json" is UTF-8.
-    def default_headers
-      { "Content-Type" => "application/json" }
-    end
-
     # Read JSON data from the POST request.
     def read
       Satz.serializer.load(req.body.read)
@@ -91,7 +85,7 @@ class Satz
 
     # Write JSON data to the response.
     def reply(data)
-      res.write(Satz.serializer.dump(data))
+      res.json(Satz.serializer.dump(data))
     end
   end
 
